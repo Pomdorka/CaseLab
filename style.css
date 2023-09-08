@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    text-align: center;
+}
+
+input {
+    width: 70vh;
+    height: 5vh;
+    display: block;
+    margin: 0 auto;
+}
+
+button {
+    width: 15vh;
+    height: 7vh;
+
+}
+
+label {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+
+.add-button {
+    text-align: center;
+    display: block;
+    margin: 20px auto;
+}
+
+.buttons {
+    display: flex;
+    width: 50%;
+    margin: 0 auto;
+   
+}
+
+.buttons button {
+    margin:  auto;
+}
+
+ul {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    text-decoration: none;
+    list-style-type: none;
+    width: 50%;
+}
+
+li {
+    margin: 10px;
+    border: 0.5px solid black;
+}
+
+.close {
+    float: right;
+    margin-right: 5px;
+}
+
+.color {
+    color: pink;
+}
