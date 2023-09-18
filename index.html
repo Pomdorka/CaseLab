@@ -5,33 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!--  <script src="https://kit.fontawesome.com/aea272c1db.js" crossorigin="anonymous"></script>  -->
+    <script src="https://kit.fontawesome.com/aea272c1db.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
 </head>
-<body>
+<body onload="loadData()">
     <h2 class="todolist">ToDoList</h2>
 
-    <div>
+    <form>
+  <label  class="label-input" for="add-area">Введите задачу</label><br>
   <input type="text" id="addArea" name="add-area" placeholder="Купить шоколадку"><br>
-  </div>
+  </form>
 
     <div class="add-button">
-        <button class="add" onclick="add()">Добавить</button>
+        <button class="add" onclick="newElement()">Добавить</button>
     </div>
     <div class="buttons" id="buttons">
-         <button class="odd">Выделить нечётные элементы</button>
+         <button class="odd" onclick = "markOdd()">Выделить нечётные элементы</button>
          <button class="even">Выделить чётные элементы</button>
-         <button class="remove-first">Удалить первый элемент</button>
-         <button class="remove-last">Удалить последний элемент</button>
+         <button class="remove-first" onclick = "deleteFirst()">Удалить первый элемент</button>
+         <button class="remove-last" onclick = "deleteLast()">Удалить последний элемент</button>
     </div>
-    <ul id="table">
-        <li>Hit the gym</li>
-        <li class="checked">Pay bills</li>
-        <li>Meet George</li>
-        <li>Buy eggs</li>
-        <li>Read a book</li>
-        <li>Organize office</li>
+    <ul id="myUL">
+        
       </ul>
     
     
