@@ -47,12 +47,13 @@ function newElement() {
 
       }
     }
-    globalLength = Object.keys(value).length;
+    //globalLength = Object.keys(value).length;
     //alert("hi");
     
     //let tevirp = value[0];
     //console.log(globalLength);
-
+var num = 200;
+alert('hi &{num}');
     localStorage.setItem('test', JSON.stringify(value));
 }
 
