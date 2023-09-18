@@ -41,7 +41,8 @@ function newElement() {
         localStorage.removeItem("test");
         
         value[j] = {"setting" : ul[j].innerHTML};
-        
+        ///alert('test &{j}');
+        //localStorage.setItem('test &{i}', ul[j].innerHTML);
         ///alert(value..setting);
 
       }
@@ -86,7 +87,10 @@ function markOdd(){ //нечетные
 }
 
 function markEven(){ //четные
-
+  var list = document.querySelectorAll('#myUL li');
+  for (var i = 0; i < list.length; i++) {
+    list[i].style.color = 'red';
+  }
 }
 
 
