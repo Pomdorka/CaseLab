@@ -57,11 +57,37 @@ li {
     border: 0.5px solid black;
 }
 
+.color {
+    color: pink;
+}
+
+.markedBlue {
+    background-color: blue;
+}
+
+.markedRed {
+    background-color: red;
+}
+
 .close {
     float: right;
+    background-color: blue;
+    height: inherit;
+    width: 20px;
     margin-right: 5px;
 }
 
-.color {
-    color: pink;
+.close:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+.checkBox {
+    float: left;
+    height: inherit;
+}
+
+.ready {
+    background-color: grey;
+    opacity: 0.2;
 }

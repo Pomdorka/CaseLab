@@ -1,17 +1,16 @@
-///window.onload = loadData;
-var myNodelist = document.getElementsByTagName("LI");
-var i;
-var globalLength = 0;
-for (i = 0; i < myNodelist.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
+function saveElements(element){
+  var ul = document.getElementById('myUL');
+        ul.removeChild(this.parentElement);
+        let value = {
+        };
+        const uls = document.getElementById("myUL").getElementsByTagName("li");
+        localStorage.removeItem('test');
+        for (j = 0; j <= uls.length - 1; j++) {
+          value[j] = {"setting" : uls[j].innerHTML};
+        }
+        localStorage.setItem('test', JSON.stringify(value));
 }
 
-
-//Добавляем элемент к списку
 function newElement() {
     var li = document.createElement("li");
     var inputValue = document.getElementById("addArea").value;
@@ -21,8 +20,56 @@ function newElement() {
       alert("Введите название задачи:)");
     } else {
       document.getElementById("myUL").appendChild(li);
+      var span = document.createElement("BUTTON");
+      var txt = document.createTextNode("\u00D7");
+      span.className = "close";
+      span.appendChild(txt);
+      li.appendChild(span);
+      span.onclick = function(){
+///////////////////////////////////////////////////////////////////////////////////////////////
+        var ul = document.getElementById('myUL');
+        ul.removeChild(this.parentElement);
+        let value = {
+        };
+        const uls = document.getElementById("myUL").getElementsByTagName("li");
+        localStorage.removeItem('test');
+        for (j = 0; j <= uls.length - 1; j++) {
+          value[j] = {"setting" : uls[j].innerHTML};
+        }
+        localStorage.setItem('test', JSON.stringify(value));
+      };
+///////////////////////////////////////////////////////////////////////////////////////////////
+      var complete = document.createElement("button");
+      //complete.setAttribute("type", "checkbox");
+      complete.className = "checkBox";
+      li.appendChild(complete);
 
-      
+      complete.onclick = function(){
+        
+          //complete.classList.add("ready");
+          complete.classList.add("checked");
+          oldValue = complete.parentElement.innerHTML;
+          //console.log(oldValue);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+          var ul = document.getElementById('myUL');
+          ul.removeChild(this.parentElement);
+          let value = {
+          };
+          const uls = document.getElementById("myUL").getElementsByTagName("li");
+          localStorage.removeItem('test');
+          for (j = 0; j <= uls.length - 1; j++) {
+            value[j] = {"setting" : uls[j].innerHTML};
+          }
+          value[uls.length] = {"setting" : oldValue};
+          localStorage.setItem('test', JSON.stringify(value));
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+          const li = document.createElement("li");
+          
+            
+          document.getElementById("myUL").appendChild(li).innerHTML = oldValue;
+      };
+
     }
     document.getElementById("addArea").value = "";
   
@@ -37,60 +84,102 @@ function newElement() {
           oldItem = localStorage.getItem("test");
         else
           oldItem = "";
-        ///alert(oldItem);
         localStorage.removeItem("test");
-        
         value[j] = {"setting" : ul[j].innerHTML};
-        ///alert('test &{j}');
-        //localStorage.setItem('test &{i}', ul[j].innerHTML);
-        ///alert(value..setting);
-
       }
     }
-    //globalLength = Object.keys(value).length;
-    //alert("hi");
-    
-    //let tevirp = value[0];
-    //console.log(globalLength);
-var num = 200;
-alert('hi &{num}');
     localStorage.setItem('test', JSON.stringify(value));
 }
+
+
 
 function loadData() {
   
   let value = JSON.parse(localStorage.getItem("test"));
   var size = Object.keys(value).length;
-  //alert(value.first.setting);
-  ///alert(size);
+
   for (let i = 0; i <= size - 1; i++) {
-      //console.log(value[i].setting);
       const li = document.createElement("li");
+      
       document.getElementById("myUL").appendChild(li).innerHTML = value[i].setting;
+      
   }
+
+  list = document.getElementById("myUL").getElementsByTagName('li');
+  for (var i=0; i<list.length; i++){
+    
+    button = list[i].getElementsByClassName("close");
+    button[0].onclick = function(){
+///////////////////////////////////////////////////////////////////////////////////////////////
+var ul = document.getElementById('myUL');
+ul.removeChild(this.parentElement);
+let value = {
+};
+const uls = document.getElementById("myUL").getElementsByTagName("li");
+localStorage.removeItem('test');
+for (j = 0; j <= uls.length - 1; j++) {
+  value[j] = {"setting" : uls[j].innerHTML};
+  //console.log(value[j]);
+}
+localStorage.setItem('test', JSON.stringify(value));
+};
+///////////////////////////////////////////////////////////////////////////////////////////////
+    }
 }
 
+
+
 function deleteLast(){
+  let value = {
+  };
+  const uls = document.getElementById("myUL").getElementsByTagName("li");
+  localStorage.removeItem('test');
+  for (j = 0; j <= uls.length - 2; j++) {
+    value[j] = {"setting" : uls[j].innerHTML};
+  }
+  localStorage.setItem('test', JSON.stringify(value));
   var ul = document.getElementById('myUL');
   ul.removeChild(ul.lastElementChild);
 }
 
+
+
 function deleteFirst(){
+  let value = {
+  };
+  const uls = document.getElementById("myUL").getElementsByTagName("li");
+  localStorage.removeItem('test');
+  for (j = 0; j <= uls.length - 2; j++) {
+    value[j] = {"setting" : uls[j+1].innerHTML};
+  }
+  localStorage.setItem('test', JSON.stringify(value));
   var ul = document.getElementById('myUL');
-   ul.removeChild(ul.firstElementChild);
+  ul.removeChild(ul.firstElementChild);
 }
+
+
 
 function markOdd(){ //нечетные
   var list = document.querySelectorAll('#myUL li');
+  
   for (var i = 0; i < list.length; i++) {
-    list[i].style.color = 'blue';
+    if (i%2 == 0 && list[i].classList.contains("markedBlue"))
+      list[i].classList.remove("markedBlue");
+    else if(i%2 == 0)
+      list[i].classList.add("markedBlue");
   }
 }
 
+
+
 function markEven(){ //четные
   var list = document.querySelectorAll('#myUL li');
+
   for (var i = 0; i < list.length; i++) {
-    list[i].style.color = 'red';
+    if (i%2 == 1 && list[i].classList.contains("markedRed"))
+      list[i].classList.remove("markedRed");
+    else if(i%2 == 1)
+      list[i].classList.add("markedRed");
   }
 }
 
