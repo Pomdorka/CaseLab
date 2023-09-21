@@ -1,16 +1,3 @@
-function saveElements(element){
-  var ul = document.getElementById('myUL');
-        ul.removeChild(this.parentElement);
-        let value = {
-        };
-        const uls = document.getElementById("myUL").getElementsByTagName("li");
-        localStorage.removeItem('test');
-        for (j = 0; j <= uls.length - 1; j++) {
-          value[j] = {"setting" : uls[j].innerHTML};
-        }
-        localStorage.setItem('test', JSON.stringify(value));
-}
-
 function newElement() {
     var li = document.createElement("li");
     var inputValue = document.getElementById("addArea").value;
@@ -46,7 +33,7 @@ function newElement() {
 
       complete.onclick = function(){
         
-          //complete.classList.add("ready");
+          //complete.parentNode.classList.add("ready");
           complete.classList.add("checked");
           oldValue = complete.parentElement.innerHTML;
           //console.log(oldValue);
@@ -65,9 +52,24 @@ function newElement() {
           localStorage.setItem('test', JSON.stringify(value));
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
           const li = document.createElement("li");
-          
-            
+          li.classList.add("ready");
+
           document.getElementById("myUL").appendChild(li).innerHTML = oldValue;
+
+          button = li.getElementsByClassName("close");
+          button[0].onclick = function(){
+
+            var ul = document.getElementById('myUL');
+            ul.removeChild(this.parentElement);
+            let value = {
+            };
+            const uls = document.getElementById("myUL").getElementsByTagName("li");
+            localStorage.removeItem('test');
+            for (j = 0; j <= uls.length - 1; j++) {
+              value[j] = {"setting" : uls[j].innerHTML};
+            }
+            localStorage.setItem('test', JSON.stringify(value));
+          };
       };
 
     }
@@ -125,6 +127,12 @@ localStorage.setItem('test', JSON.stringify(value));
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////
     }
+    for (var i=0; i<list.length; i++){
+      if (list[i].getElementsByClassName("checked").length)
+        list[i].classList.add("ready");
+      console.log(list[i].getElementsByClassName("checked").length);
+    }
+
 }
 
 
