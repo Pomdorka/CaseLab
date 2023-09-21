@@ -32,12 +32,8 @@ function newElement() {
       li.appendChild(complete);
 
       complete.onclick = function(){
-        
-          //complete.parentNode.classList.add("ready");
           complete.classList.add("checked");
           oldValue = complete.parentElement.innerHTML;
-          //console.log(oldValue);
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
           var ul = document.getElementById('myUL');
           ul.removeChild(this.parentElement);
@@ -111,6 +107,45 @@ function loadData() {
   for (var i=0; i<list.length; i++){
     
     button = list[i].getElementsByClassName("close");
+    checkButton = list[i].getElementsByClassName("checkBox");
+    oldValue = checkButton[0].parentElement.innerHTML;
+    checkButton[0].onclick = function(){
+      checkButton[0].classList.add("checked");
+          oldValue = checkButton[0].parentElement.innerHTML;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+          var ul = document.getElementById('myUL');
+          ul.removeChild(this.parentElement);
+          let value = {
+          };
+          const uls = document.getElementById("myUL").getElementsByTagName("li");
+          localStorage.removeItem('test');
+          for (j = 0; j <= uls.length - 1; j++) {
+            value[j] = {"setting" : uls[j].innerHTML};
+          }
+          value[uls.length] = {"setting" : oldValue};
+          localStorage.setItem('test', JSON.stringify(value));
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+          const li = document.createElement("li");
+          li.classList.add("ready");
+
+          document.getElementById("myUL").appendChild(li).innerHTML = oldValue;
+
+          button = li.getElementsByClassName("close");
+          button[0].onclick = function(){
+
+            var ul = document.getElementById('myUL');
+            ul.removeChild(this.parentElement);
+            let value = {
+            };
+            const uls = document.getElementById("myUL").getElementsByTagName("li");
+            localStorage.removeItem('test');
+            for (j = 0; j <= uls.length - 1; j++) {
+              value[j] = {"setting" : uls[j].innerHTML};
+            }
+            localStorage.setItem('test', JSON.stringify(value));
+          };
+    }
+
     button[0].onclick = function(){
 ///////////////////////////////////////////////////////////////////////////////////////////////
 var ul = document.getElementById('myUL');
