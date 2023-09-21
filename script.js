@@ -1,3 +1,7 @@
+function deleteElement(){
+  
+}
+
 function newElement() {
     var li = document.createElement("li");
     var inputValue = document.getElementById("addArea").value;
@@ -36,31 +40,41 @@ function newElement() {
           oldValue = complete.parentElement.innerHTML;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
           var ul = document.getElementById('myUL');
+          var completedUL = document.getElementById('completedUL');
           ul.removeChild(this.parentElement);
           let value = {
           };
+          let completedValue = {
+          };
           const uls = document.getElementById("myUL").getElementsByTagName("li");
+          const completedUls = document.getElementById("completedUL").getElementsByTagName("li");
           localStorage.removeItem('test');
+          localStorage.removeItem('completedTest');
+          completedValue[completedUls.length] = {"setting" : oldValue};
           for (j = 0; j <= uls.length - 1; j++) {
             value[j] = {"setting" : uls[j].innerHTML};
           }
-          value[uls.length] = {"setting" : oldValue};
+          for (j = 0; j <= completedUls.length - 1; j++) {
+            completedValue[j] = {"setting" : completedUls[j].innerHTML};
+          }
+          //completedValue[completedUls.length] = {"setting" : oldValue};
           localStorage.setItem('test', JSON.stringify(value));
+          localStorage.setItem('completedTest', JSON.stringify(completedValue));
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
           const li = document.createElement("li");
           li.classList.add("ready");
 
-          document.getElementById("myUL").appendChild(li).innerHTML = oldValue;
+          document.getElementById("completedUL").appendChild(li).innerHTML = oldValue;
 
           button = li.getElementsByClassName("close");
           button[0].onclick = function(){
 
-            var ul = document.getElementById('myUL');
+            var ul = document.getElementById('completedUL');
             ul.removeChild(this.parentElement);
             let value = {
             };
-            const uls = document.getElementById("myUL").getElementsByTagName("li");
-            localStorage.removeItem('test');
+            const uls = document.getElementById("completedUL").getElementsByTagName("li");
+            localStorage.removeItem('completedTest');
             for (j = 0; j <= uls.length - 1; j++) {
               value[j] = {"setting" : uls[j].innerHTML};
             }
@@ -92,15 +106,17 @@ function newElement() {
 
 
 function loadData() {
-  
   let value = JSON.parse(localStorage.getItem("test"));
+  let completedValue = JSON.parse(localStorage.getItem("completedTest"));
   var size = Object.keys(value).length;
-
+  var completedSize = Object.keys(completedValue).length;
   for (let i = 0; i <= size - 1; i++) {
-      const li = document.createElement("li");
-      
-      document.getElementById("myUL").appendChild(li).innerHTML = value[i].setting;
-      
+    const li = document.createElement("li");
+    document.getElementById("myUL").appendChild(li).innerHTML = value[i].setting;
+  }
+  for (let i = 0; i <= completedSize - 1; i++) {
+    const li = document.createElement("li");
+    document.getElementById("completedUL").appendChild(li).innerHTML = completedValue[i].setting;
   }
 
   list = document.getElementById("myUL").getElementsByTagName('li');
@@ -147,21 +163,21 @@ function loadData() {
     }
 
     button[0].onclick = function(){
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+  var ul = document.getElementById('myUL');
+  ul.removeChild(this.parentElement);
+  let value = {
+  };
+  const uls = document.getElementById("myUL").getElementsByTagName("li");
+  localStorage.removeItem('test');
+  for (j = 0; j <= uls.length - 1; j++) {
+    value[j] = {"setting" : uls[j].innerHTML};
+    //console.log(value[j]);
+  }
+  localStorage.setItem('test', JSON.stringify(value));
+  };
 ///////////////////////////////////////////////////////////////////////////////////////////////
-var ul = document.getElementById('myUL');
-ul.removeChild(this.parentElement);
-let value = {
-};
-const uls = document.getElementById("myUL").getElementsByTagName("li");
-localStorage.removeItem('test');
-for (j = 0; j <= uls.length - 1; j++) {
-  value[j] = {"setting" : uls[j].innerHTML};
-  //console.log(value[j]);
 }
-localStorage.setItem('test', JSON.stringify(value));
-};
-///////////////////////////////////////////////////////////////////////////////////////////////
-    }
     for (var i=0; i<list.length; i++){
       if (list[i].getElementsByClassName("checked").length)
         list[i].classList.add("ready");
@@ -185,8 +201,6 @@ function deleteLast(){
   ul.removeChild(ul.lastElementChild);
 }
 
-
-
 function deleteFirst(){
   let value = {
   };
@@ -200,8 +214,6 @@ function deleteFirst(){
   ul.removeChild(ul.firstElementChild);
 }
 
-
-
 function markOdd(){ //нечетные
   var list = document.querySelectorAll('#myUL li');
   
@@ -213,8 +225,6 @@ function markOdd(){ //нечетные
   }
 }
 
-
-
 function markEven(){ //четные
   var list = document.querySelectorAll('#myUL li');
 
@@ -225,5 +235,3 @@ function markEven(){ //четные
       list[i].classList.add("markedRed");
   }
 }
-
-
