@@ -37,6 +37,7 @@ function newElement() {
       };
 ///////////////////////////////////////////////////////////////////////////////////////////////
       var complete = document.createElement("button");
+      complete.innerHTML = "Completed";
       //complete.setAttribute("type", "checkbox");
       complete.className = "checkBox";
       li.appendChild(complete);
@@ -263,29 +264,56 @@ localStorage.setItem('completedTest', JSON.stringify(value));
 }
 
 function deleteLast(){
-  let value = {
-  };
-  const uls = document.getElementById("myUL").getElementsByTagName("li");
-  localStorage.removeItem('test');
-  for (j = 0; j <= uls.length - 2; j++) {
-    value[j] = {"setting" : uls[j].innerHTML};
+  if (document.getElementById("completedUL").getElementsByTagName("li").length != 0){
+    console.log(document.getElementById("completedUL").getElementsByTagName("li").length);
+    let value = {
+    };
+    const uls = document.getElementById("completedUL").getElementsByTagName("li");
+    localStorage.removeItem('completedTest');
+    for (j = 0; j <= uls.length - 2; j++) {
+      value[j] = {"setting" : uls[j].innerHTML};
+    }
+    localStorage.setItem('completedTest', JSON.stringify(value));
+    var ul = document.getElementById('completedUL');
+    ul.removeChild(ul.lastElementChild);
+  } else {
+    let value = {
+    };
+    const uls = document.getElementById("myUL").getElementsByTagName("li");
+    localStorage.removeItem('test');
+    for (j = 0; j <= uls.length - 2; j++) {
+      value[j] = {"setting" : uls[j].innerHTML};
+    }
+    localStorage.setItem('test', JSON.stringify(value));
+    var ul = document.getElementById('myUL');
+    ul.removeChild(ul.lastElementChild);
   }
-  localStorage.setItem('test', JSON.stringify(value));
-  var ul = document.getElementById('myUL');
-  ul.removeChild(ul.lastElementChild);
 }
 
 function deleteFirst(){
-  let value = {
-  };
-  const uls = document.getElementById("myUL").getElementsByTagName("li");
-  localStorage.removeItem('test');
-  for (j = 0; j <= uls.length - 2; j++) {
-    value[j] = {"setting" : uls[j+1].innerHTML};
+  if (document.getElementById("myUL").getElementsByTagName("li").length != 0){
+    let value = {
+    };
+    const uls = document.getElementById("myUL").getElementsByTagName("li");
+    localStorage.removeItem('test');
+    for (j = 0; j <= uls.length - 2; j++) {
+      value[j] = {"setting" : uls[j+1].innerHTML};
+    }
+    localStorage.setItem('test', JSON.stringify(value));
+    var ul = document.getElementById('myUL');
+    ul.removeChild(ul.firstElementChild);
+  } else {
+    let value = {
+    };
+    const uls = document.getElementById("completedUL").getElementsByTagName("li");
+    localStorage.removeItem('completedTest');
+    for (j = 0; j <= uls.length - 2; j++) {
+      value[j] = {"setting" : uls[j+1].innerHTML};
+    }
+    localStorage.setItem('completedTest', JSON.stringify(value));
+    var ul = document.getElementById('completedUL');
+    ul.removeChild(ul.firstElementChild);
   }
-  localStorage.setItem('test', JSON.stringify(value));
-  var ul = document.getElementById('myUL');
-  ul.removeChild(ul.firstElementChild);
 }
 
 function markOdd(){ //нечетные
