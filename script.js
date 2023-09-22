@@ -1,7 +1,3 @@
-function deleteElement(){
-  
-}
-
 function newElement() {
     var li = document.createElement("li");
     var inputValue = document.getElementById("addArea").value;
@@ -18,16 +14,26 @@ function newElement() {
       li.appendChild(span);
       span.onclick = function(){
 ///////////////////////////////////////////////////////////////////////////////////////////////
-        var ul = document.getElementById('myUL');
+        var ul = this.parentElement.parentElement;
+        const uls = ul.getElementsByTagName("li");
         ul.removeChild(this.parentElement);
         let value = {
         };
-        const uls = document.getElementById("myUL").getElementsByTagName("li");
-        localStorage.removeItem('test');
-        for (j = 0; j <= uls.length - 1; j++) {
-          value[j] = {"setting" : uls[j].innerHTML};
+        if (document.getElementById("myUL") == ul){
+          //console.log(ul.getElementByID("myUL"));
+          localStorage.removeItem('test');
+          for (j = 0; j <= uls.length - 1; j++) {
+           value[j] = {"setting" : uls[j].innerHTML};
+          }
+          localStorage.setItem('test', JSON.stringify(value));
+        } else{
+          localStorage.removeItem('completedTest');
+          for (j = 0; j <= uls.length - 1; j++) {
+           value[j] = {"setting" : uls[j].innerHTML};
+          }
+          localStorage.setItem('completedTest', JSON.stringify(value));
         }
-        localStorage.setItem('test', JSON.stringify(value));
+        
       };
 ///////////////////////////////////////////////////////////////////////////////////////////////
       var complete = document.createElement("button");
@@ -37,7 +43,7 @@ function newElement() {
 
       complete.onclick = function(){
           complete.classList.add("checked");
-          oldValue = complete.parentElement.innerHTML;
+          oldValue = this.parentElement.innerHTML;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
           var ul = document.getElementById('myUL');
           var completedUL = document.getElementById('completedUL');
@@ -68,17 +74,24 @@ function newElement() {
 
           button = li.getElementsByClassName("close");
           button[0].onclick = function(){
-
+            const uls = document.getElementById("myUL").getElementsByTagName("li");
             var ul = document.getElementById('completedUL');
             ul.removeChild(this.parentElement);
             let value = {
             };
-            const uls = document.getElementById("completedUL").getElementsByTagName("li");
+            let completedValue = {
+            };
+            const completedUls = ul.getElementsByTagName("li");
+            localStorage.removeItem('test');
             localStorage.removeItem('completedTest');
             for (j = 0; j <= uls.length - 1; j++) {
               value[j] = {"setting" : uls[j].innerHTML};
             }
             localStorage.setItem('test', JSON.stringify(value));
+            for (j = 0; j <= completedUls.length - 1; j++) {
+              completedValue[j] = {"setting" : completedUls[j].innerHTML};
+            }
+            localStorage.setItem('completedTest', JSON.stringify(completedValue));
           };
       };
 
@@ -103,8 +116,6 @@ function newElement() {
     localStorage.setItem('test', JSON.stringify(value));
 }
 
-
-
 function loadData() {
   let value = JSON.parse(localStorage.getItem("test"));
   let completedValue = JSON.parse(localStorage.getItem("completedTest"));
@@ -120,8 +131,8 @@ function loadData() {
   }
 
   list = document.getElementById("myUL").getElementsByTagName('li');
+
   for (var i=0; i<list.length; i++){
-    
     button = list[i].getElementsByClassName("close");
     checkButton = list[i].getElementsByClassName("checkBox");
     oldValue = checkButton[0].parentElement.innerHTML;
@@ -178,15 +189,78 @@ function loadData() {
   };
 ///////////////////////////////////////////////////////////////////////////////////////////////
 }
-    for (var i=0; i<list.length; i++){
-      if (list[i].getElementsByClassName("checked").length)
-        list[i].classList.add("ready");
-      console.log(list[i].getElementsByClassName("checked").length);
+for (var i=0; i<list.length; i++){
+  if (list[i].getElementsByClassName("checked").length)
+    list[i].classList.add("ready");
+  //console.log(list[i].getElementsByClassName("checked").length);
+}
+///`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````///
+completedList = document.getElementById("completedUL").getElementsByTagName('li');
+for (var i=0; i<completedList.length; i++){
+  completedButton = completedList[i].getElementsByClassName("close");
+  completedCheckButton = completedList[i].getElementsByClassName("checkBox");
+  CompletedOldValue = checkButton[0].parentElement.innerHTML;
+  completedCheckButton[0].onclick = function(){
+    completedCheckButton[0].classList.add("checked");
+    CompletedOldValue = completedCheckButton[0].parentElement.innerHTML;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        var ul = document.getElementById('completedUL');
+        ul.removeChild(this.parentElement);
+        let value = {
+        };
+        const uls = document.getElementById("completedUL").getElementsByTagName("li");
+        localStorage.removeItem('completedTest');
+        for (j = 0; j <= uls.length - 1; j++) {
+          value[j] = {"setting" : uls[j].innerHTML};
+        }
+        value[uls.length] = {"setting" : CompletedOldValue};
+        localStorage.setItem('completedTest', JSON.stringify(value));
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        const li = document.createElement("li");
+        li.classList.add("ready");
+
+        document.getElementById("completedUL").appendChild(li).innerHTML = CompletedOldValue;
+
+        completedButton = li.getElementsByClassName("close");
+        completedButton[0].onclick = function(){
+
+          var ul = document.getElementById('completedUL');
+          ul.removeChild(this.parentElement);
+          let value = {
+          };
+          const uls = document.getElementById("completedUL").getElementsByTagName("li");
+          localStorage.removeItem('completedTest');
+          for (j = 0; j <= uls.length - 1; j++) {
+            value[j] = {"setting" : uls[j].innerHTML};
+          }
+          localStorage.setItem('completedTest', JSON.stringify(value));
+        };
+  }
+
+  completedButton[0].onclick = function(){
+///////////////////////////////////////////////////////////////////////////////////////////////
+var ul = document.getElementById('completedUL');
+ul.removeChild(this.parentElement);
+let value = {
+};
+const uls = document.getElementById("completedUL").getElementsByTagName("li");
+localStorage.removeItem('test');
+for (j = 0; j <= uls.length - 1; j++) {
+  value[j] = {"setting" : uls[j].innerHTML};
+  //console.log(value[j]);
+}
+localStorage.setItem('completedTest', JSON.stringify(value));
+};
+///////////////////////////////////////////////////////////////////////////////////////////////
+}
+///`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````///
+    for (var i=0; i<completedList.length; i++){
+      if (completedList[i].getElementsByClassName("checked").length)
+      completedList[i].classList.add("ready");
+      //console.log(completedList[i].getElementsByClassName("checked").length);
     }
 
 }
-
-
 
 function deleteLast(){
   let value = {

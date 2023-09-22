@@ -62,7 +62,7 @@ li {
 }
 
 .markedBlue {
-    background-color: blue;
+    background: blue 60%;
 }
 
 .markedRed {
@@ -84,7 +84,8 @@ li {
 
 .checkBox {
     float: left;
-    height: inherit;
+
+    height: 1.3vh;
 }
 
 .ready {
